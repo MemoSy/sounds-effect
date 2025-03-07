@@ -16,8 +16,8 @@ class AudioAnalyzer {
     try {
       // Create audio context if it doesn't exist
       if (!this.audioContext) {
-        this.audioContext = new (window.AudioContext ||
-          (window as any).webkitAudioContext)();
+        this.audioContext = new (window.AudioContext || 
+          (window as unknown as {webkitAudioContext: typeof AudioContext}).webkitAudioContext)()
       }
 
       // Get microphone access with optimal settings for voice

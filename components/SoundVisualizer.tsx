@@ -11,7 +11,6 @@ import AudioAnalyzer from './AudioAnalyzer'
 const SoundVisualizer = () => {
   const [isListening, setIsListening] = useState(false)
   const [audioData, setAudioData] = useState<number[]>(new Array(128).fill(0))
-  const [error, setError] = useState<string | null>(null)
   const [statusMessage, setStatusMessage] = useState('')
   const [showStatus, setShowStatus] = useState(false)
   
@@ -59,15 +58,12 @@ const SoundVisualizer = () => {
     try {
       await audioAnalyzerRef.current?.start()
       setIsListening(true)
-      setError(null)
       showStatusMessage('Microphone active')
     } catch (err) {
       console.error("Microphone error:", err)
       if (err instanceof Error) {
-        setError(err.message)
         showStatusMessage(`Error: ${err.message}`)
       } else {
-        setError('Failed to access microphone')
         showStatusMessage('Failed to access microphone')
       }
     }
